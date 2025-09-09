@@ -11,6 +11,10 @@ public class DbConnect {
   // private static final String PASS = "admin";
   private static final String URL = "jdbc:sqlite:db.sqlite";
 
+  /**
+   * @return
+   * @throws SQLException
+   */
   public static Connection getConnection() throws SQLException {
     try {
       Class.forName("org.sqlite.JDBC");

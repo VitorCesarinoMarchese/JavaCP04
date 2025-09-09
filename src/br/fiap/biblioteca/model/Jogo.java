@@ -11,9 +11,21 @@ public class Jogo {
   private int nota;
   private int ano_lancamento;
 
+  /**
+   * 
+   */
   public Jogo() {
   }
 
+  /**
+   * @param id
+   * @param titulo
+   * @param genero
+   * @param plataforma
+   * @param status
+   * @param nota
+   * @param ano_lancamento
+   */
   public Jogo(Integer id, String titulo, String genero, String plataforma, String status, int nota,
       int ano_lancamento) {
     this.id = id;
@@ -25,6 +37,14 @@ public class Jogo {
     this.ano_lancamento = ano_lancamento;
   }
 
+  /**
+   * @param titulo
+   * @param genero
+   * @param plataforma
+   * @param status
+   * @param nota
+   * @param ano_lancamento
+   */
   public Jogo(String titulo, String genero, String plataforma, String status, int nota, int ano_lancamento) {
     this(null, titulo, genero, plataforma, status, nota, ano_lancamento);
   }
@@ -48,26 +68,44 @@ public class Jogo {
     return Objects.equals(id, jogo.id);
   }
 
+  /**
+   * @param id
+   */
   public void setId(Integer id) {
     this.id = id;
   }
 
+  /**
+   * @param titulo
+   */
   public void setTitulo(String titulo) {
     this.titulo = titulo;
   }
 
+  /**
+   * @param genero
+   */
   public void setGenero(String genero) {
     this.genero = genero;
   }
 
+  /**
+   * @param plataforma
+   */
   public void setPlataforma(String plataforma) {
     this.plataforma = plataforma;
   }
 
+  /**
+   * @param status
+   */
   public void setStatus(String status) {
     this.status = status;
   }
 
+  /**
+   * @param ano_lancamento
+   */
   public void setAno_lancamento(int ano_lancamento) {
     this.ano_lancamento = ano_lancamento;
   }
@@ -77,34 +115,58 @@ public class Jogo {
     return Objects.hash(id);
   }
 
+  /**
+   * @return
+   */
   public Integer getId() {
     return id;
   }
 
+  /**
+   * @return
+   */
   public String getTitulo() {
     return titulo;
   }
 
+  /**
+   * @return
+   */
   public String getGenero() {
     return genero;
   }
 
+  /**
+   * @return
+   */
   public String getPlataforma() {
     return plataforma;
   }
 
+  /**
+   * @return
+   */
   public String getStatus() {
     return status;
   }
 
+  /**
+   * @return
+   */
   public int getAno_lancamento() {
     return ano_lancamento;
   }
 
+  /**
+   * @return
+   */
   public int getNota() {
     return nota;
   }
 
+  /**
+   * @param nota
+   */
   public void setNota(int nota) {
     this.nota = nota;
   }

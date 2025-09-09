@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBInit {
+  /**
+   * @throws SQLException
+   */
   public static void ensureCreated() throws SQLException {
     String sql = "CREATE TABLE IF NOT EXISTS jogo (" +
         "id INTEGER PRIMARY KEY AUTOINCREMENT," +
