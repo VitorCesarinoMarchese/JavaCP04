@@ -17,7 +17,7 @@ public class DBInit {
         "genero TEXT NOT NULL," +
         "plataforma TEXT NOT NULL," +
         "status TEXT NOT NULL," + // “Jogando”, “Concluído”, “Wishlist”
-        "nota INTEGER NOT NULL" +
+        "nota INTEGER NOT NULL," +
         "ano_lancamento INTEGER NOT NULL" +
         ")";
     try (Connection c = DbConnect.getConnection();

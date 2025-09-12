@@ -182,11 +182,27 @@ public class JogoDAO {
    * @return
    * @throws SQLException
    */
-  public long contarPorGenero(String genero) throws SQLException {
-    String sql = "SELECT COUNT(*) FROM jogo WHERE genero = ?";
+  public long contarConcluidosPorGenero(String genero) throws SQLException {
+    String sql = "SELECT COUNT(*) FROM jogo WHERE genero = ? AND WHERE status = 'Concluído'";
     try (Connection c = DbConnect.getConnection();
         PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setString(1, genero);
+      try (ResultSet rs = ps.executeQuery()) {
+        return rs.next() ? rs.getLong(1) : 0L;
+      }
+    }
+  }
+
+  /**
+   * @param plataforma
+   * @return
+   * @throws SQLException
+   */
+  public long contarConcluidosPorPlataforma(String plataforma) throws SQLException {
+    String sql = "SELECT COUNT(*) FROM jogo WHERE plataforma = ? AND WHERE status = 'Concluído'";
+    try (Connection c = DbConnect.getConnection();
+        PreparedStatement ps = c.prepareStatement(sql)) {
+      ps.setString(1, plataforma);
       try (ResultSet rs = ps.executeQuery()) {
         return rs.next() ? rs.getLong(1) : 0L;
       }
