@@ -39,8 +39,10 @@ public class JogoView extends JFrame {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(1000, 700);
     setLocationRelativeTo(null);
+    getContentPane().setBackground(Color.BLACK);
 
     JPanel form = new JPanel(new GridBagLayout());
+    form.setBackground(Color.BLACK);
     GridBagConstraints g = new GridBagConstraints();
     g.insets = new Insets(5, 5, 5, 5);
     g.fill = GridBagConstraints.HORIZONTAL;
@@ -50,13 +52,17 @@ public class JogoView extends JFrame {
     // Row 1: ID + Titulo
     g.gridx = 0;
     g.gridy = y;
-    form.add(new JLabel("ID:"), g);
+    JLabel idLabel = new JLabel("ID:");
+    idLabel.setForeground(Color.WHITE);
+    form.add(idLabel, g);
     g.gridx = 1;
     txtId.setEditable(false);
     form.add(txtId, g);
 
     g.gridx = 2;
-    form.add(new JLabel("Título:"), g);
+    JLabel tituloLable = new JLabel("Título:");
+    tituloLable.setForeground(Color.WHITE);
+    form.add(tituloLable, g);
     g.gridx = 3;
     form.add(txtTitulo, g);
 
@@ -65,12 +71,16 @@ public class JogoView extends JFrame {
     // Row 2: Genero + Plataforma
     g.gridx = 0;
     g.gridy = y;
-    form.add(new JLabel("Gênero:"), g);
+    JLabel generoLabel = new JLabel("Gênero:");
+    generoLabel.setForeground(Color.WHITE);
+    form.add(generoLabel, g);
     g.gridx = 1;
     form.add(cbGenero, g);
 
     g.gridx = 2;
-    form.add(new JLabel("Plataforma:"), g);
+    JLabel plataformaLabel = new JLabel("Plataforma:");
+    plataformaLabel.setForeground(Color.WHITE);
+    form.add(plataformaLabel, g);
     g.gridx = 3;
     form.add(cbPlataforma, g);
 
@@ -79,12 +89,16 @@ public class JogoView extends JFrame {
     // Row 3: Status + Nota
     g.gridx = 0;
     g.gridy = y;
-    form.add(new JLabel("Status:"), g);
+    JLabel statusLabel = new JLabel("Status:");
+    statusLabel.setForeground(Color.WHITE);
+    form.add(statusLabel, g);
     g.gridx = 1;
     form.add(cbStatus, g);
 
     g.gridx = 2;
-    form.add(new JLabel("Nota:"), g);
+    JLabel notaLabel = new JLabel("Nota:");
+    notaLabel.setForeground(Color.WHITE);
+    form.add(notaLabel, g);
     g.gridx = 3;
     form.add(txtNota, g);
 
@@ -93,11 +107,15 @@ public class JogoView extends JFrame {
     // Row 4: Ano lançamento
     g.gridx = 0;
     g.gridy = y;
-    form.add(new JLabel("Ano lançamento:"), g);
+    JLabel anoLabel = new JLabel("Ano lançamento:");
+    anoLabel.setForeground(Color.WHITE);
+    form.add(anoLabel, g);
     g.gridx = 1;
     form.add(txtAno, g);
 
     JPanel botoes = new JPanel();
+    botoes.setBackground(Color.DARK_GRAY);
+    botoes.setForeground(Color.WHITE);
     JButton btnLimpar = new JButton("Limpar");
     JButton btnNovo = new JButton("Novo");
     JButton btnAtualizar = new JButton("Atualizar");
@@ -108,13 +126,27 @@ public class JogoView extends JFrame {
     botoes.add(btnExcluir);
 
     JPanel busca = new JPanel();
+    busca.setBackground(Color.BLACK);
     JButton btnBuscar = new JButton("Buscar");
-    busca.add(new JLabel("Titulo:"));
+    btnBuscar.setBackground(Color.DARK_GRAY);
+    btnBuscar.setForeground(Color.WHITE);
+    JLabel buscaLabel = new JLabel("Título:");
+    buscaLabel.setForeground(Color.WHITE);
+    busca.add(buscaLabel);
     busca.add(txtBuscar);
     busca.add(btnBuscar);
 
+    tabela.setBackground(Color.BLACK);
+    tabela.setForeground(Color.WHITE);
+    tabela.setSelectionBackground(Color.DARK_GRAY);
+    tabela.setSelectionForeground(Color.CYAN);
+    tabela.getTableHeader().setBackground(Color.DARK_GRAY);
+    tabela.getTableHeader().setForeground(Color.WHITE);
+
     add(form, BorderLayout.NORTH);
-    add(new JScrollPane(tabela), BorderLayout.CENTER);
+    JScrollPane scroll = new JScrollPane(tabela);
+    scroll.getViewport().setBackground(Color.BLACK);
+    add(scroll, BorderLayout.CENTER);
     add(botoes, BorderLayout.SOUTH);
     add(busca, BorderLayout.WEST);
 
