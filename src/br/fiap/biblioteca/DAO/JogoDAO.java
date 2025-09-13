@@ -50,6 +50,27 @@ public class JogoDAO {
   }
 
   /**
+   * @param titulo
+   * @param plataforma
+   * @return
+   * @throws SQLException
+   */
+  public Jogo validarExistencia(String titulo, String plataforma) throws SQLException {
+    String sql = "SELECT id, titulo, genero, plataforma, status, nota, ano_lancamento " +
+        "FROM jogo WHERE titulo = ? AND plataforma = ? LIMIT 1";
+    try (Connection c = DbConnect.getConnection();
+        PreparedStatement ps = c.prepareStatement(sql)) {
+      ps.setString(1, titulo);
+      ps.setString(2, plataforma);
+      try (ResultSet rs = ps.executeQuery()) {
+        if (rs.next())
+          return map(rs);
+      }
+    }
+    return null;
+  }
+
+  /**
    * @return
    * @throws SQLException
    */
@@ -157,14 +178,14 @@ public class JogoDAO {
     }
   }
 
-  // --- Métodos "de relevância" (consultas de negócio) ---
+  // --- Busca por titulo que contenha ---
   /**
    * @param termo
    * @return
    * @throws SQLException
    */
-  public List<Jogo> buscarPorNomeLike(String termo) throws SQLException {
-    String sql = "SELECT id, titulo, genero, plataforma, status, nota, ano_lancamento FROM jogo WHERE nome LIKE ? ORDER BY titulo";
+  public List<Jogo> buscarPorTituloLike(String termo) throws SQLException {
+    String sql = "SELECT id, titulo, genero, plataforma, status, nota, ano_lancamento FROM jogo WHERE titulo LIKE ? ORDER BY titulo";
     List<Jogo> lista = new ArrayList<>();
     try (Connection c = DbConnect.getConnection();
         PreparedStatement ps = c.prepareStatement(sql)) {

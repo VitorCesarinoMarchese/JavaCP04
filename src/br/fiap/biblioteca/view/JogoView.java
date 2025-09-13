@@ -28,16 +28,16 @@ public class JogoView extends JFrame {
   private JTextField txtBuscar = new JTextField(15);
 
   private DefaultTableModel model = new DefaultTableModel(
-      new Object[] { "titulo", " genero", "  plataforma", " status", "  nota", " ano_lancamento" }, 0);
+      new Object[] { "ID", "Título", "Gênero", "Plataforma", "Status", "Nota", "Ano lançamento" }, 0);
   private JTable tabela = new JTable(model);
 
   private JogoDAO dao = new JogoDAO();
   private JogoService service = new JogoService();
 
   public JogoView() {
-    super("Busca de jogos - Swing + SQLite + DAO");
+    super("Biblioteca de jogos");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setSize(800, 500);
+    setSize(1000, 700);
     setLocationRelativeTo(null);
 
     JPanel form = new JPanel(new GridBagLayout());
@@ -46,51 +46,70 @@ public class JogoView extends JFrame {
     g.fill = GridBagConstraints.HORIZONTAL;
 
     int y = 0;
+
+    // Row 1: ID + Titulo
     g.gridx = 0;
     g.gridy = y;
     form.add(new JLabel("ID:"), g);
     g.gridx = 1;
-    g.gridy = y;
     txtId.setEditable(false);
     form.add(txtId, g);
 
-    y++;
-    g.gridx = 0;
-    g.gridy = y;
-    form.add(new JLabel("Nome:"), g);
-    g.gridx = 1;
-    g.gridy = y;
+    g.gridx = 2;
+    form.add(new JLabel("Título:"), g);
+    g.gridx = 3;
     form.add(txtTitulo, g);
 
     y++;
-    g.gridx = 0;
-    g.gridy = y;
-    form.add(new JLabel("Idade:"), g);
-    g.gridx = 1;
-    g.gridy = y;
-    form.add(txtId, g);
 
-    y++;
+    // Row 2: Genero + Plataforma
     g.gridx = 0;
     g.gridy = y;
-    form.add(new JLabel("Curso:"), g);
+    form.add(new JLabel("Gênero:"), g);
     g.gridx = 1;
-    g.gridy = y;
     form.add(cbGenero, g);
 
+    g.gridx = 2;
+    form.add(new JLabel("Plataforma:"), g);
+    g.gridx = 3;
+    form.add(cbPlataforma, g);
+
+    y++;
+
+    // Row 3: Status + Nota
+    g.gridx = 0;
+    g.gridy = y;
+    form.add(new JLabel("Status:"), g);
+    g.gridx = 1;
+    form.add(cbStatus, g);
+
+    g.gridx = 2;
+    form.add(new JLabel("Nota:"), g);
+    g.gridx = 3;
+    form.add(txtNota, g);
+
+    y++;
+
+    // Row 4: Ano lançamento
+    g.gridx = 0;
+    g.gridy = y;
+    form.add(new JLabel("Ano lançamento:"), g);
+    g.gridx = 1;
+    form.add(txtAno, g);
+
     JPanel botoes = new JPanel();
+    JButton btnLimpar = new JButton("Limpar");
     JButton btnNovo = new JButton("Novo");
-    JButton btnSalvar = new JButton("Salvar");
     JButton btnAtualizar = new JButton("Atualizar");
     JButton btnExcluir = new JButton("Excluir");
+    botoes.add(btnLimpar);
     botoes.add(btnNovo);
-    botoes.add(btnSalvar);
     botoes.add(btnAtualizar);
     botoes.add(btnExcluir);
 
     JPanel busca = new JPanel();
     JButton btnBuscar = new JButton("Buscar");
-    busca.add(new JLabel("Nome:"));
+    busca.add(new JLabel("Titulo:"));
     busca.add(txtBuscar);
     busca.add(btnBuscar);
 
@@ -100,8 +119,8 @@ public class JogoView extends JFrame {
     add(busca, BorderLayout.WEST);
 
     // Ações
-    btnNovo.addActionListener(e -> limpar());
-    btnSalvar.addActionListener(e -> salvar());
+    btnLimpar.addActionListener(e -> limpar());
+    btnNovo.addActionListener(e -> salvar());
     btnAtualizar.addActionListener(e -> atualizar());
     btnExcluir.addActionListener(e -> excluir());
     btnBuscar.addActionListener(e -> buscar());
@@ -128,11 +147,7 @@ public class JogoView extends JFrame {
     int nota = Integer.parseInt(txtNota.getText());
     int ano_lancamento = Integer.parseInt(txtAno.getText());
     Jogo j = new Jogo(titulo, genero, plataforma, status, nota, ano_lancamento);
-    try {
-      service.validarJogo(j);
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
+    service.validarJogo(j);
     return j;
   }
 
@@ -183,7 +198,7 @@ public class JogoView extends JFrame {
 
   private void buscar() {
     try {
-      List<Jogo> lista = dao.buscarPorNomeLike(txtBuscar.getText());
+      List<Jogo> lista = dao.buscarPorTituloLike(txtBuscar.getText());
       preencherTabela(lista);
     } catch (SQLException ex) {
       JOptionPane.showMessageDialog(this, "Erro ao buscar: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

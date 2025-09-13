@@ -25,8 +25,8 @@ public class JogoService {
    * @throws SQLException
    */
   public void validarJogo(Jogo j) throws SQLException {
-    List<Jogo> search = dao.buscarPorNomeLike(j.getTitulo());
-    if (search.size() > 0 && search.get(0).getPlataforma() == j.getPlataforma())
+    Jogo existe = dao.validarExistencia(j.getTitulo(), j.getPlataforma());
+    if (existe != null)
       throw new IllegalArgumentException("O jogo deve conter um titulo e ou plataforma unica");
 
     if (j.getTitulo() == null || j.getTitulo().trim().length() < 2)
